@@ -1,0 +1,15 @@
+table,
+th,
+td {
+  text-align: center;
+}
+.body {
+  position: relative;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+th {
+  background-color: #dcdcdc;
+}
+table {
+  padding-top: 30px;
+}

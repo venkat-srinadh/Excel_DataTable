@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Excel</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/datetime/1.1.1/css/dataTables.dateTime.min.css"
+    />
+    <!-- Momentjs  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <!-- Datatables -->
+    <script src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <!-- sheetjs -->
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+
+    <script src="./Resources/js/script.js"></script>
+    <link rel="stylesheet" href="./Resources/css/style.css" />
+  </head>
+  <body>
+    <div id="title"></div>
+    <!-- <input id="test" type="text" > -->
+    <select id="sheet" style="float: right"></select>
+    <label style="float: right"> Select Sheet:</label>
+
+    <table style="float: left; width: auto">
+      <tbody>
+        <tr>
+          <td>Minimum date:</td>
+          <td>
+            <input type="text" id="min" name="min" />
+          </td>
+        </tr>
+        <tr>
+          <td>Maximum date:</td>
+          <td>
+            <input type="text" id="max" name="max" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div id="table-container">
+      <table
+        id="example"
+        class="display row-border order-column stripe"
+        width="100%"
+      >
+        <tbody></tbody>
+      </table>
+    </div>
+  </body>
+</html>
