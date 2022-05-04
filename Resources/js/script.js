@@ -1,4 +1,4 @@
-// var url = "https://github.com/SheetJS/test_files/blob/master/merge_cells.xls";
+
 var url = "./Resources/sheets/file.xlsx";
 var oReq = new XMLHttpRequest();
 oReq.open("GET", url, true);
@@ -43,14 +43,14 @@ oReq.onload = function () {
     function getJsonData(sheetName) {
       // console.log(sheetName);
       let ws = workbook.Sheets[sheetName];
-      if (!ws["!merges"]) {
-        console.log("merges");
-      }
-      ws["!merges"] = [];
-      ws["!merges"].push({
-        s: { c: 0, r: 0 },
-        e: { c: 0, r: 7 },
-      });
+//       if (!ws["!merges"]) {
+//         console.log("merges");
+//       }
+//       ws["!merges"] = [];
+//       ws["!merges"].push({
+//         s: { c: 0, r: 0 },
+//         e: { c: 0, r: 7 },
+//       });
       // console.dir(ws, { depths: null, colors: true });
       // ws["!ref"] = "B2:Z1000";
       return XLSX.utils.sheet_to_json(ws, {
@@ -115,11 +115,9 @@ oReq.onload = function () {
       console.log(data);
       var columns = getColumns(sheetName);
       // console.log(data, columns);
-      // for (var i = 0; i < columns.length; i++) {
-      //   //replaces all "." with "\\." which datatables ignores
-      //   columns[i].data = columns[i].data.replace(/\./g, "\\.");
-      //   console.log(columns[i].data);
-      // }
+      
+       document.getElementById("title").innerHTML = "<h1>" + sheetName + "</h1>";
+      
       dataTable = $("#example").DataTable({
         bDestroy: true,
         aaData: data,
@@ -144,20 +142,11 @@ oReq.onload = function () {
       var sheet = $(this).val();
       getSheet(sheet);
     });
-    // $("#test").change(function () {
-    //   d = new DateTime(document.getElementById("test"), {
-    //     format: "D/M/YYYY",
-    //   });
-    //   console.log(d.val());
-    // });
+   
 
     $(document).ready(function () {
       getSheet($("#sheet").val());
 
-      // d = new DateTime(document.getElementById("test"), {
-      //   format: "D/M/YYYY",
-      // });
-      // console.log(d.val());
     });
   } else {
     console.log(this.status);
