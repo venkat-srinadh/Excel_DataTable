@@ -1,4 +1,3 @@
-
 var url = "./Resources/sheets/file.xlsx";
 var oReq = new XMLHttpRequest();
 oReq.open("GET", url, true);
@@ -43,16 +42,6 @@ oReq.onload = function () {
     function getJsonData(sheetName) {
       // console.log(sheetName);
       let ws = workbook.Sheets[sheetName];
-//       if (!ws["!merges"]) {
-//         console.log("merges");
-//       }
-//       ws["!merges"] = [];
-//       ws["!merges"].push({
-//         s: { c: 0, r: 0 },
-//         e: { c: 0, r: 7 },
-//       });
-      // console.dir(ws, { depths: null, colors: true });
-      // ws["!ref"] = "B2:Z1000";
       return XLSX.utils.sheet_to_json(ws, {
         raw: false,
         dateNF: "mm/dd/yyyy",
@@ -63,7 +52,6 @@ oReq.onload = function () {
     function getColumns(sheetName) {
       var columns = [];
       let ws = workbook.Sheets[sheetName];
-      // ws["!ref"] = "B:";
       var columnsArray = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], {
         header: 1,
       })[0];
@@ -115,9 +103,9 @@ oReq.onload = function () {
       console.log(data);
       var columns = getColumns(sheetName);
       // console.log(data, columns);
-      
-       document.getElementById("title").innerHTML = "<h1>" + sheetName + "</h1>";
-      
+
+      document.getElementById("title").innerHTML = "<h1>" + sheetName + "</h1>";
+
       dataTable = $("#example").DataTable({
         bDestroy: true,
         aaData: data,
@@ -142,11 +130,9 @@ oReq.onload = function () {
       var sheet = $(this).val();
       getSheet(sheet);
     });
-   
 
     $(document).ready(function () {
       getSheet($("#sheet").val());
-
     });
   } else {
     console.log(this.status);
