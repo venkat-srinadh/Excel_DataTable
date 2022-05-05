@@ -61,7 +61,6 @@ oReq.onload = function () {
           title: column,
         });
       });
-
       // console.log(columns);
       return columns;
     }
