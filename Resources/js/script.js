@@ -1,4 +1,4 @@
-var url = "./Resources/sheets/file.xlsx";
+var url = "./Resources/sheets/file-medium.xlsx";
 var oReq = new XMLHttpRequest();
 oReq.open("GET", url, true);
 oReq.responseType = "arraybuffer";
