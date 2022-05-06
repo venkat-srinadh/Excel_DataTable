@@ -1,3 +1,26 @@
+var fileNames = [];
+var fileExt = ".xlsx";
+$.ajax({
+  url: "./Resources/sheets/",
+  success: function (data) {
+    $(data)
+      .find("a:contains(" + fileExt + ")")
+      .each(function () {
+        let file = $(this).text().split(fileExt)[0] + fileExt;
+        fileNames.push(file);
+      });
+
+    let fileOptionList = document.getElementById("files").options;
+
+    let fileOptions = [];
+    fileNames.forEach((file) => {
+      fileOptions.push({ text: file, value: file });
+    });
+    fileOptions.forEach((option) =>
+      fileOptionList.add(new Option(option.text, option.value))
+    );
+  },
+});
 var url = "./Resources/sheets/file.xlsx";
 var oReq = new XMLHttpRequest();
 oReq.open("GET", url, true);
