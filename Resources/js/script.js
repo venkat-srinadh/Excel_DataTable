@@ -99,7 +99,7 @@ oReq.onload = function () {
       });
 
       var data = getJsonData(sheetName);
-      console.log(data);
+
       var columns = getColumns(sheetName);
       // console.log(data, columns);
 
