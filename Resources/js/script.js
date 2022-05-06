@@ -1,7 +1,7 @@
 var fileNames = [];
 var fileExt = ".xlsx";
 $.ajax({
-  url: "/Resources/sheets/",
+  url: "https://github.com/venkatsrinadh/Excel_DataTable/tree/main/Resources/sheets/",
   success: function (data) {
     $(data)
       .find("a:contains(" + fileExt + ")")
