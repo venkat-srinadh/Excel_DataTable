@@ -1,26 +1,28 @@
 var fileNames = [];
 var fileExt = ".xlsx";
-$.ajax({
-  url: "https://github.com/venkatsrinadh/Excel_DataTable/tree/main/Resources/sheets/",
-  success: function (data) {
-    $(data)
-      .find("a:contains(" + fileExt + ")")
-      .each(function () {
-        let file = $(this).text().split(fileExt)[0] + fileExt;
-        fileNames.push(file);
-      });
-
-    let fileOptionList = document.getElementById("files").options;
-
-    let fileOptions = [];
-    fileNames.forEach((file) => {
-      fileOptions.push({ text: file, value: file });
+var xhr = new XMLHttpRequest();
+xhr.open("GET", "./Resources/sheets/", true);
+xhr.onload = function (e) {
+  $(this.responseText)
+    .find("a:contains(" + fileExt + ")")
+    .each(function () {
+      let file = $(this).text().split(fileExt)[0] + fileExt;
+      fileNames.push(file);
     });
-    fileOptions.forEach((option) =>
-      fileOptionList.add(new Option(option.text, option.value))
-    );
-  },
-});
+
+  let fileOptionList = document.getElementById("files").options;
+
+  let fileOptions = [];
+  fileNames.forEach((file) => {
+    fileOptions.push({ text: file, value: file });
+  });
+  fileOptions.forEach((option) =>
+    fileOptionList.add(new Option(option.text, option.value))
+  );
+};
+
+xhr.send();
+
 var url = "./Resources/sheets/file.xlsx";
 var oReq = new XMLHttpRequest();
 oReq.open("GET", url, true);
@@ -60,10 +62,8 @@ oReq.onload = function () {
     options.forEach((option) =>
       optionList.add(new Option(option.text, option.value))
     );
-    // console.log(options);
 
     function getJsonData(sheetName) {
-      // console.log(sheetName);
       let ws = workbook.Sheets[sheetName];
       return XLSX.utils.sheet_to_json(ws, {
         raw: false,
@@ -84,7 +84,7 @@ oReq.onload = function () {
           title: column,
         });
       });
-      // console.log(columns);
+
       return columns;
     }
 
@@ -95,7 +95,6 @@ oReq.onload = function () {
         var min = minDate.val();
         var max = maxDate.val();
         var date = new Date(data[1]);
-        // console.log(min);
 
         if (
           (min === null && max === null) ||
@@ -124,9 +123,9 @@ oReq.onload = function () {
       var data = getJsonData(sheetName);
 
       var columns = getColumns(sheetName);
-      // console.log(data, columns);
 
-      document.getElementById("title").innerHTML = "<h1>" + sheetName + "</h1>";
+      document.getElementById("title").innerHTML =
+        "<h1>" + sheetName.toString().toUpperCase() + "</h1>";
 
       dataTable = $("#example").DataTable({
         bDestroy: true,
