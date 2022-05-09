@@ -26,7 +26,7 @@ oReq.onload = function () {
     });
     var dataTable,
       htmlTable =
-        '<table id="example" class="table table-striped table-bordered" width="100%"><tbody></tbody></table>';
+        '<table id="example" class="table table-striped" width="100%"><tbody></tbody></table>';
     let optionList = document.getElementById("sheet").options;
     var sheets = workbook.SheetNames;
 
