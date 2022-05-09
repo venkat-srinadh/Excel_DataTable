@@ -4,13 +4,55 @@ td {
   text-align: center;
 }
 .body {
-  position: relative;
+  position: fixed;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-}
-table {
-  padding-top: 30px;
 }
 #title {
   text-align: center;
   margin: auto;
+}
+#table-container {
+  margin: 10px 10px 70px;
+}
+#table-container table {
+  table-layout: auto !important;
+  padding-top: 30px;
+}
+#table-container th {
+  font-weight: bold;
+}
+#table-container th.sorting.sorting_asc,
+#table-container th.sorting.sorting_desc {
+  background-color: steelblue;
+}
+#select {
+  margin: 10px;
+}
+#date-selectors {
+  margin: 10px;
+}
+h1 {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+h1:after {
+  display: inline-block;
+  margin: 0 0 8px 20px;
+  height: 3px;
+  content: " ";
+  text-shadow: none;
+  background-color: #999;
+  width: 140px;
+}
+h1:before {
+  display: inline-block;
+  margin: 0 20px 8px 0;
+  height: 3px;
+  content: " ";
+  text-shadow: none;
+  background-color: #999;
+  width: 140px;
 }

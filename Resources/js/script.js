@@ -3,22 +3,23 @@ var fileExt = ".xlsx";
 var xhr = new XMLHttpRequest();
 xhr.open("GET", "./Resources/sheets/", true);
 xhr.onload = function (e) {
-  $(this.responseText)
-    .find("a:contains(" + fileExt + ")")
-    .each(function () {
-      let file = $(this).text().split(fileExt)[0] + fileExt;
-      fileNames.push(file);
-    });
+  if (xhr.status === 200) {
+    $(this.responseText)
+      .find("a:contains(" + fileExt + ")")
+      .each(function () {
+        let file = $(this).text().split(fileExt)[0] + fileExt;
+        console.log(file);
+        fileNames.push(file);
+      });
 
-  let fileOptionList = document.getElementById("files").options;
+    // let fileOptionList = document.getElementById("files").options;
 
-  let fileOptions = [];
-  fileNames.forEach((file) => {
-    fileOptions.push({ text: file, value: file });
-  });
-  fileOptions.forEach((option) =>
-    fileOptionList.add(new Option(option.text, option.value))
-  );
+    // let fileOptions = [];
+    // fileNames.forEach((file) => fileOptions.push({ text: file, value: file }));
+    // fileOptions.forEach((option) =>
+    //   fileOptionList.add(new Option(option.text, option.value))
+    // );
+  }
 };
 
 xhr.send();

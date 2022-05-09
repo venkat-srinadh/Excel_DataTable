@@ -31,36 +31,34 @@
   <body>
     <div id="title" class="mb-3"></div>
     <!-- <input id="test" type="text" > -->
-    <div>
+    <!-- <div id="select">
       <label> Select File:</label>
       <select id="files"></select>
+    </div> -->
+    <div id="select">
+      <select id="sheet" style="float: right"></select>
+      <label style="float: right"> Select Sheet:</label>
     </div>
-    <select id="sheet" style="float: right"></select>
-    <label style="float: right"> Select Sheet:</label>
-
-    <table>
-      <tbody>
-        <tr>
-          <td>Minimum date:</td>
-          <td>
-            <input type="text" id="min" name="min" />
-          </td>
-        </tr>
-        <tr>
-          <td>Maximum date:</td>
-          <td>
-            <input type="text" id="max" name="max" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
+    <div id="date-selectors">
+      <table>
+        <tbody>
+          <tr>
+            <td>Minimum date:</td>
+            <td>
+              <input type="text" id="min" name="min" />
+            </td>
+          </tr>
+          <tr>
+            <td>Maximum date:</td>
+            <td>
+              <input type="text" id="max" name="max" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <div id="table-container">
-      <table
-        id="example"
-        class="table table-striped table-bordered"
-        width="100%"
-      >
+      <table id="example" class="table table-striped" width="100%">
         <tbody></tbody>
       </table>
     </div>
