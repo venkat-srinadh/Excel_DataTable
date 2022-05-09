@@ -1,4 +1,4 @@
-var url = "./Resources/sheets/file.xlsx";
+var url = "./Resources/sheets/sampledata.xlsx";
 var oReq = new XMLHttpRequest();
 oReq.open("GET", url, true);
 oReq.responseType = "arraybuffer";
@@ -43,7 +43,7 @@ oReq.onload = function () {
       return XLSX.utils.sheet_to_json(ws, {
         raw: false,
         dateNF: "mm/dd/yyyy",
-        blankrows: false,
+        defval: "",
       });
     }
 
@@ -113,6 +113,13 @@ oReq.onload = function () {
             render: function (aaData, type, row) {
               aaData = aaData + "";
               return aaData.split("\n").join("<br/>");
+            },
+          },
+          {
+            data: undefined,
+            render: function (aaData, type, full, meta) {
+              aaData = aaData + "";
+              return aaData;
             },
           },
         ],

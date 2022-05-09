@@ -21,6 +21,9 @@ td {
 #table-container th {
   font-weight: bold;
 }
+#table-container td:hover {
+  background-color: rgb(181, 193, 204);
+}
 #table-container th.sorting.sorting_asc,
 #table-container th.sorting.sorting_desc {
   background-color: steelblue;
