@@ -15,7 +15,6 @@ td {
   margin: 10px 10px 70px;
 }
 #table-container table {
-  table-layout: auto !important;
   padding-top: 30px;
 }
 #table-container th {
@@ -58,4 +57,7 @@ h1:before {
   text-shadow: none;
   background-color: #999;
   width: 140px;
+}
+table.dataTable {
+  border-collapse: collapse !important;
 }
