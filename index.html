@@ -15,11 +15,9 @@
     <!-- Momentjs  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
-    <script src="//cdn.datatables.net/plug-ins/1.11.5/sorting/datetime-moment.js"></script>
-
     <!-- sheetjs -->
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <!-- Bootstrap -->
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
     <link
       rel="stylesheet"
@@ -29,15 +27,6 @@
       rel="stylesheet"
       href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css"
     />
-    <!-- <script
-      type="text/javascript"
-      src="https://cdn.datatables.net/v/bs4-4.0.0/jq-3.2.1/dt-1.10.16/datatables.min.js"
-    ></script>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdn.datatables.net/v/bs4-4.0.0/jq-3.2.1/dt-1.10.16/datatables.min.css"
-    /> -->
 
     <link
       rel="icon"
@@ -51,10 +40,14 @@
   <body>
     <div id="title" class="mb-3"></div>
     <!-- <input id="test" type="text" > -->
-    <!-- <div id="select">
+    <div id="select">
       <label> Select File:</label>
-      <select id="files"></select>
-    </div> -->
+      <select id="files">
+        <option value="sampledata.xlsx">sampledata.xlsx</option>
+        <option value="file.xlsx">file.xlsx</option>
+        <option value="file-medium.xlsx">file-medium.xlsx</option>
+      </select>
+    </div>
     <div id="select">
       <select id="sheet" style="float: right"></select>
       <label style="float: right"> Select Sheet:</label>

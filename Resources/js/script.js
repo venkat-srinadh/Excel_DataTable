@@ -1,142 +1,167 @@
-var url = "./Resources/sheets/sampledata.xlsx";
-var oReq = new XMLHttpRequest();
-oReq.open("GET", url, true);
-oReq.responseType = "arraybuffer";
+window.onload = function () {
+  loaddata($("#files").val());
+};
+$(document)
+  .off("change", "#files")
+  .on("change", "#files", function (event) {
+    let fileName = $(this).val();
+    loaddata(fileName);
+  });
 
-oReq.onload = function () {
-  if (this.status == 200) {
-    var arraybuffer = oReq.response;
+function loaddata(file) {
+  var url = "./Resources/sheets/";
+  url = url + file;
+  var oReq = new XMLHttpRequest();
+  oReq.open("GET", url, true);
+  oReq.responseType = "arraybuffer";
 
-    var data = new Uint8Array(arraybuffer);
+  oReq.onload = function () {
+    if (this.status == 200) {
+      var arraybuffer = oReq.response;
 
-    var arr = new Array();
-    for (var i = 0; i != data.length; ++i)
-      arr[i] = String.fromCharCode(data[i]);
+      var data = new Uint8Array(arraybuffer);
 
-    var bstr = arr.join("");
+      var arr = new Array();
+      for (var i = 0; i != data.length; ++i)
+        arr[i] = String.fromCharCode(data[i]);
 
-    var workbook = XLSX.read(bstr, {
-      type: "binary",
-      cellText: false,
-      cellDates: true,
-    });
-    const workbookHeaders = XLSX.read(bstr, {
-      type: "binary",
-      sheetRows: 1,
-    });
-    var dataTable,
-      htmlTable =
-        '<table id="example" class="table table-striped table-bordered" width="100%"><tbody></tbody></table>';
-    let optionList = document.getElementById("sheet").options;
-    var sheets = workbook.SheetNames;
+      var bstr = arr.join("");
 
-    let options = [];
-    sheets.forEach((sheet) => {
-      options.push({ text: sheet, value: sheet });
-    });
-    options.forEach((option) =>
-      optionList.add(new Option(option.text, option.value))
-    );
-
-    function getJsonData(sheetName) {
-      let ws = workbook.Sheets[sheetName];
-      return XLSX.utils.sheet_to_json(ws, {
-        raw: false,
-        dateNF: "mm/dd/yyyy",
-        defval: "",
+      var workbook = XLSX.read(bstr, {
+        type: "binary",
+        cellText: false,
+        cellDates: true,
       });
-    }
+      const workbookHeaders = XLSX.read(bstr, {
+        type: "binary",
+        sheetRows: 1,
+      });
+      var dataTable,
+        htmlTable =
+          '<table id="example" class="table table-striped table-bordered" width="100%"><tbody></tbody></table>';
+      let optionList = document.getElementById("sheet").options;
+      var sheets = workbook.SheetNames;
+      $("#sheet").empty();
+      const options = [];
+      sheets.forEach((sheet) => {
+        options.push({ text: sheet, value: sheet });
+      });
+      options.forEach((option) =>
+        optionList.add(new Option(option.text, option.value))
+      );
 
-    function getColumns(sheetName) {
-      var columns = [];
-      let ws = workbook.Sheets[sheetName];
-      var columnsArray = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], {
-        header: 1,
-      })[0];
-      columnsArray.forEach((column) => {
-        columns.push({
-          data: column.toString().replace(/\./g, "\\."),
-          title: column,
+      function getJsonData(sheetName) {
+        let ws = workbook.Sheets[sheetName];
+        return XLSX.utils.sheet_to_json(ws, {
+          raw: false,
+          dateNF: "mm/dd/yyyy",
+          defval: "",
         });
-      });
+      }
 
-      return columns;
-    }
+      function getColumns(sheetName) {
+        ("use strict");
+        let columns = [];
+        let ws = workbook.Sheets[sheetName];
+        const columnsArray = XLSX.utils.sheet_to_json(ws, {
+          header: 1,
+        })[0];
 
-    function getSheet(sheetName) {
-      var minDate, maxDate;
-
-      $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-        var min = minDate.val();
-        var max = maxDate.val();
-        var date = new Date(data[1]);
-
-        if (
-          (min === null && max === null) ||
-          (min === null && date <= max) ||
-          (min <= date && max === null) ||
-          (min <= date && date <= max)
-        ) {
-          return true;
+        if (columnsArray) {
+          columnsArray.forEach((column) => {
+            columns.push({
+              data: column.toString().replace(/\./g, "\\."),
+              title: column,
+            });
+          });
         }
 
-        return false;
-      });
-      if ($.fn.DataTable.isDataTable("#example")) {
-        dataTable = $("#example").DataTable();
-        dataTable.destroy(true);
-        $("#table-container").empty();
-        $("#table-container").append(htmlTable);
+        return columns;
       }
-      minDate = new DateTime($("#min"), {
-        format: "MM/DD/YYYY",
-      });
-      maxDate = new DateTime($("#max"), {
-        format: "MM/DD/YYYY",
-      });
 
-      var data = getJsonData(sheetName);
+      function getSheet(sheetName) {
+        var minDate, maxDate;
 
-      var columns = getColumns(sheetName);
+        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+          var min = minDate.val();
+          var max = maxDate.val();
+          var date = new Date(data[1]);
 
-      document.getElementById("title").innerHTML =
-        "<h1>" + sheetName.toString().toUpperCase() + "</h1>";
+          if (
+            (min === null && max === null) ||
+            (min === null && date <= max) ||
+            (min <= date && max === null) ||
+            (min <= date && date <= max)
+          ) {
+            return true;
+          }
 
-      dataTable = $("#example").DataTable({
-        bDestroy: true,
-        aaData: data,
-        aoColumns: columns,
+          return false;
+        });
 
-        columnDefs: [
-          {
-            targets: "_all",
-            render: function (aaData, type, row) {
-              aaData = aaData + "";
-              return aaData.split("\n").join("<br/>");
+        if ($.fn.DataTable.isDataTable("#example")) {
+          dataTable = $("#example").DataTable();
+          dataTable.destroy(true);
+          $("#table-container").empty();
+          $("#table-container").append(htmlTable);
+        }
+        minDate = new DateTime($("#min"), {
+          format: "MM/DD/YYYY",
+        });
+        maxDate = new DateTime($("#max"), {
+          format: "MM/DD/YYYY",
+        });
+
+        var data = getJsonData(sheetName);
+
+        let columns = getColumns(sheetName);
+
+        document.getElementById("title").innerHTML =
+          "<h1>" + sheetName.toString().toUpperCase() + "</h1>";
+
+        dataTable = $("#example").DataTable({
+          bDestroy: true,
+          aaData: data,
+          aoColumns: columns,
+
+          columnDefs: [
+            {
+              targets: "_all",
+              render: function (aaData, type, row) {
+                aaData = aaData + "";
+                return aaData.split("\n").join("<br/>");
+              },
             },
-          },
-          {
-            targets: 1,
-            type: "date",
-          },
-        ],
-      });
+            {
+              targets: 1,
+              type: "date",
+            },
+          ],
+        });
 
-      $("#min, #max").change(function () {
-        dataTable.draw();
-      });
-    }
-    $("#sheet").change(function () {
-      var sheet = $(this).val();
-      getSheet(sheet);
-    });
+        $("#min, #max").change(function () {
+          dataTable.draw();
+        });
+      }
+      // $("#sheet").change(function () {
+      //   console.log("getting sheet...");
+      //   var sheet = $(this).val();
+      //   getSheet(sheet);
+      // });
 
-    $(document).ready(function () {
       getSheet($("#sheet").val());
-    });
-  } else {
-    console.log(this.status);
-  }
-};
 
-oReq.send();
+      $(document)
+        .off("change", "#sheet")
+        .on("change", "#sheet", function (e) {
+          console.log("getting sheet...");
+          var sheet = $(this).val();
+          getSheet(sheet);
+        });
+    } else {
+      console.log(this.status);
+    }
+  };
+
+  oReq.send();
+}
